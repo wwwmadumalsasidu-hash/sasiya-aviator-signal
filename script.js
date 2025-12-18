@@ -1,4 +1,6 @@
-// INTRO VIDEO AUTO END
+/* =========================
+   INTRO VIDEO AUTO END
+========================= */
 const intro = document.getElementById("intro");
 const app = document.getElementById("app");
 const video = document.getElementById("introVideo");
@@ -10,7 +12,9 @@ if (video) {
   };
 }
 
-// REAL-TIME DATE & TIME
+/* =========================
+   REAL-TIME DATE & TIME
+========================= */
 function updateDateTime() {
   const now = new Date();
   const el = document.getElementById("datetime");
@@ -23,26 +27,130 @@ function updateDateTime() {
 setInterval(updateDateTime, 1000);
 updateDateTime();
 
-// MAIN SIGNALS GENERATE
+/* =========================
+   ACTIVATION SETTINGS
+========================= */
+const ACTIVATION_CODE = "SASIYA2025"; // 🔑 CHANGE THIS
+const VALID_HOURS = 24;               // ⏱ VALID TIME
+
+/* =========================
+   MAIN GENERATE BUTTON
+   (WITH ACTIVATION)
+========================= */
 const genBtn = document.getElementById("genBtn");
 if (genBtn) {
   genBtn.onclick = () => {
-    fetch("main-signals.json")
-      .then(r => r.json())
-      .then(data => {
-        document.getElementById("signalArea").style.display = "block";
-        data.boxes.forEach((box, i) => {
-          let html = "";
-          box.forEach(s => {
-            html += `<p>⏰ ${s.time} | 🎯 ${s.odd}</p>`;
-          });
-          document.getElementById("box" + (i + 1)).innerHTML = html;
-        });
-      });
+    if (isActivationValid()) {
+      loadMainSignals();
+      startTimer();
+    } else {
+      document.getElementById("activationModal").style.display = "flex";
+    }
   };
 }
 
-// 2X SIGNALS GENERATE
+/* =========================
+   CHECK ACTIVATION
+========================= */
+function checkActivation() {
+  const input = document.getElementById("activationInput").value;
+  const msg = document.getElementById("activationMsg");
+
+  if (input !== ACTIVATION_CODE) {
+    msg.style.color = "red";
+    msg.innerText = "❌ Invalid Activation Code";
+    return;
+  }
+
+  const expiry = Date.now() + VALID_HOURS * 60 * 60 * 1000;
+  localStorage.setItem("activationExpiry", expiry);
+
+  msg.style.color = "lime";
+  msg.innerText = "✅ Activated Successfully";
+
+  setTimeout(() => {
+    document.getElementById("activationModal").style.display = "none";
+    loadMainSignals();
+    startTimer();
+  }, 800);
+}
+
+function isActivationValid() {
+  const expiry = localStorage.getItem("activationExpiry");
+  if (!expiry) return false;
+  return Date.now() < expiry;
+}
+
+/* =========================
+   LOAD MAIN SIGNALS
+========================= */
+function loadMainSignals() {
+  fetch("main-signals.json")
+    .then(r => r.json())
+    .then(data => {
+      document.getElementById("signalArea").style.display = "block";
+      document.getElementById("activationTimer").style.display = "block";
+
+      data.boxes.forEach((box, i) => {
+        let html = "";
+        box.forEach(s => {
+          html += `<p>⏰ ${s.time} | 🎯 ${s.odd}</p>`;
+        });
+        document.getElementById("box" + (i + 1)).innerHTML = html;
+      });
+    });
+}
+
+/* =========================
+   ACTIVATION TIMER
+========================= */
+let timerInterval;
+
+function startTimer() {
+  clearInterval(timerInterval);
+
+  timerInterval = setInterval(() => {
+    const expiry = localStorage.getItem("activationExpiry");
+    if (!expiry) return;
+
+    const diff = expiry - Date.now();
+
+    if (diff <= 0) {
+      clearInterval(timerInterval);
+      logout();
+      return;
+    }
+
+    const d = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const h = Math.floor((diff / (1000 * 60 * 60)) % 24);
+    const m = Math.floor((diff / (1000 * 60)) % 60);
+    const s = Math.floor((diff / 1000) % 60);
+
+    document.getElementById("timeLeft").innerText =
+      `${d}d : ${h}h : ${m}m : ${s}s`;
+  }, 1000);
+}
+
+function logout() {
+  localStorage.removeItem("activationExpiry");
+  document.getElementById("signalArea").style.display = "none";
+  document.getElementById("activationTimer").style.display = "none";
+  alert("⛔ Activation Expired");
+}
+
+/* =========================
+   AUTO LOAD IF STILL ACTIVE
+========================= */
+window.onload = () => {
+  if (isActivationValid()) {
+    loadMainSignals();
+    startTimer();
+  }
+};
+
+/* =========================
+   2X SIGNALS (NO ACTIVATION)
+========================= */
 const gen2x = document.getElementById("gen2x");
 if (gen2x) {
   gen2x.onclick = () => {
