@@ -16,7 +16,6 @@
 <!-- MAIN APP -->
 <div id="app" style="display:none;">
 
-  <!-- BACKGROUND VIDEO -->
   <video class="bg-video" autoplay muted loop playsinline>
     <source src="assets/bg.mp4" type="video/mp4">
   </video>
@@ -29,42 +28,32 @@
   <button id="genBtn">🚀 Generate Signals</button>
   <button onclick="location.href='twox.html'">🔥 2x Signals</button>
 
+  <div id="activationTimer" style="display:none;">
+    ⏳ Activation expires in :
+    <span id="timeLeft"></span>
+  </div>
+
   <div id="signalArea" style="display:none;">
     <div class="grid">
-      <div class="box" id="box1">19:48:09</div>
-      <div class="box" id="box2">19:49:10</div>
-      <div class="box" id="box3">19:50:11</div>
-      <div class="box" id="box4">19:51:12</div>
+      <div class="box" id="box1"></div>
+      <div class="box" id="box2"></div>
+      <div class="box" id="box3"></div>
+      <div class="box" id="box4"></div>
     </div>
   </div>
 
 </div>
 
+<!-- ACTIVATION -->
+<div id="activationModal" class="modal" style="display:none;">
+  <div class="modal-box">
+    <h3>🔐 Enter Activation Code</h3>
+    <input type="text" id="activationInput">
+    <button onclick="checkActivation()">Activate</button>
+    <p id="activationMsg"></p>
+  </div>
+</div>
+
 <script src="script.js"></script>
-<script>
-  const intro = document.getElementById("intro");
-  const app = document.getElementById("app");
-  const video = document.getElementById("introVideo");
-
-  if (video) {
-    video.onended = () => {
-      intro.style.display = "none";
-      app.style.display = "block";
-    };
-  }
-
-  function updateDateTime() {
-    const now = new Date();
-    const el = document.getElementById("datetime");
-    if (el) {
-      el.innerText =
-        "📅 " + now.toLocaleDateString("en-GB") +
-        " | ⏰ " + now.toLocaleTimeString();
-    }
-  }
-  setInterval(updateDateTime, 1000);
-  updateDateTime();
-</script>
-
 </body>
-      </html>
+        </html>
