@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>SASIYA Aviator Signal Generator</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- INTRO VIDEO -->
+<div id="intro">
+  <video autoplay muted playsinline id="introVideo">
+    <source src="assets/intro.mp4" type="video/mp4">
+  </video>
+</div>
+
+<!-- MAIN APP -->
+<div id="app" style="display:none;">
+
+  <!-- BACKGROUND VIDEO -->
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="assets/bg.mp4" type="video/mp4">
+  </video>
+
+  <div class="header">
+    <h1>SASIYA Aviator Signal Generator</h1>
+    <p id="datetime"></p>
+  </div>
+
+  <button id="genBtn">🚀 Generate Signals</button>
+  <button onclick="location.href='twox.html'">🔥 2x Signals</button>
+
+  <div id="signalArea" style="display:none;">
+    <div class="grid">
+      <div class="box" id="box1"></div>
+      <div class="box" id="box2"></div>
+      <div class="box" id="box3"></div>
+      <div class="box" id="box4"></div>
+    </div>
+  </div>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
