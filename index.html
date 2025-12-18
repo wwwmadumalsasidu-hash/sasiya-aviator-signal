@@ -12,7 +12,7 @@
     <source src="assets/intro.mp4" type="video/mp4">
   </video>
 
-  <!-- Name overlay -->
+  <!-- Name overlay above video -->
   <div id="nameOverlay">
     <div id="mainName">SASIYA AVIATOR SIGNAL GANARATOR</div>
     <div id="subName">POWER BUY SASIYA</div>
@@ -47,5 +47,33 @@
 </div>
 
 <script src="script.js"></script>
+
+<script>
+  // Intro video end → show main app
+  const intro = document.getElementById("intro");
+  const app = document.getElementById("app");
+  const video = document.getElementById("introVideo");
+
+  if (video) {
+    video.onended = () => {
+      intro.style.display = "none";
+      app.style.display = "block";
+    };
+  }
+
+  // Real-time date & time
+  function updateDateTime() {
+    const now = new Date();
+    const el = document.getElementById("datetime");
+    if (el) {
+      el.innerText =
+        "📅 " + now.toLocaleDateString("en-GB") +
+        " | ⏰ " + now.toLocaleTimeString();
+    }
+  }
+  setInterval(updateDateTime, 1000);
+  updateDateTime();
+</script>
+
 </body>
-                                   </html>
+      </html>
