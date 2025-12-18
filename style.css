@@ -20,6 +20,48 @@ body {
   object-fit: cover;
 }
 
+/* Name overlay on intro video */
+#nameOverlay {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10000;
+  pointer-events: none;
+}
+
+#mainName {
+  font-size: 48px;
+  font-weight: bold;
+  color: #ff2d55; /* main name color */
+  text-shadow: 2px 2px 8px black;
+  opacity: 0;
+  animation: fadeInMain 2s forwards;
+  animation-delay: 0.5s; /* fade in after 0.5s */
+}
+
+#subName {
+  font-size: 24px;
+  font-weight: bold;
+  color: #ffffff; /* subtitle color */
+  text-shadow: 2px 2px 6px black;
+  margin-top: 10px;
+  opacity: 0;
+  animation: fadeInSub 2s forwards;
+  animation-delay: 1.5s; /* appear after main name */
+}
+
+@keyframes fadeInMain {
+  from { opacity: 0; transform: translate(-50%, -60%); }
+  to { opacity: 1; transform: translate(-50%, -50%); }
+}
+
+@keyframes fadeInSub {
+  from { opacity: 0; transform: translate(-50%, -40%); }
+  to { opacity: 1; transform: translate(-50%, -35%); }
+}
+
 /* BACKGROUND VIDEO */
 .bg-video {
   position: fixed;
@@ -55,4 +97,4 @@ button {
   background: rgba(0,0,0,0.6);
   padding: 10px;
   border-radius: 8px;
-}
+  }
