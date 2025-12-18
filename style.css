@@ -12,6 +12,7 @@ body {
   inset: 0;
   z-index: 9999;
   background: black;
+  overflow: hidden; /* ensures overlay visible */
 }
 
 #intro video {
@@ -27,8 +28,9 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   text-align: center;
-  z-index: 10000;
+  z-index: 10001; /* above video */
   pointer-events: none;
+  width: 100%;
 }
 
 #mainName {
