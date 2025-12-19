@@ -6,6 +6,7 @@ body {
   text-align: center;
 }
 
+/* INTRO VIDEO */
 #intro {
   position: fixed;
   inset: 0;
@@ -18,6 +19,7 @@ body {
   object-fit: cover;
 }
 
+/* BACKGROUND VIDEO */
 .bg-video {
   position: fixed;
   inset: 0;
@@ -26,17 +28,21 @@ body {
   object-fit: cover;
 }
 
+/* HEADER */
 .header {
   padding: 15px;
   background: rgba(0,0,0,0.6);
 }
 
+/* BUTTONS */
 button {
   padding: 10px 15px;
   margin: 10px;
   font-size: 16px;
+  cursor: pointer;
 }
 
+/* GRID BOXES */
 .grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
@@ -52,6 +58,7 @@ button {
   font-size: 22px;
 }
 
+/* GLOW ANIMATION */
 @keyframes glow {
   from { box-shadow: 0 0 10px #ff2d55; }
   to { box-shadow: 0 0 20px #00ffcc; }
@@ -65,10 +72,32 @@ button {
   display: flex;
   align-items: center;
   justify-content: center;
+  z-index: 10000;
 }
 
 .modal-box {
   background: #111;
   padding: 20px;
   border-radius: 10px;
+  text-align: center;
+}
+
+/* 2X SIGNALS NOTICE BOX */
+.highlight-box {
+  background: #ffea00;
+  color: #000;
+  font-weight: bold;
+  padding: 15px;
+  border-radius: 10px;
+  margin: 15px 10px;
+  text-align: center;
+  box-shadow: 0 0 15px rgba(255, 234, 0, 0.8);
+  animation: pulse 1.5s infinite;
+}
+
+/* PULSE ANIMATION FOR NOTICE */
+@keyframes pulse {
+  0% { box-shadow: 0 0 15px rgba(255, 234, 0, 0.8); }
+  50% { box-shadow: 0 0 25px rgba(255, 234, 0, 1); }
+  100% { box-shadow: 0 0 15px rgba(255, 234, 0, 0.8); }
 }
