@@ -149,20 +149,25 @@ window.onload = () => {
 };
 
 /* =========================
-   2X SIGNALS (NO ACTIVATION)
+   2X SIGNALS BUTTON
+   (ACTIVATION REQUIRED TOO)
 ========================= */
 const gen2x = document.getElementById("gen2x");
 if (gen2x) {
   gen2x.onclick = () => {
-    fetch("twox-signals.json")
-      .then(r => r.json())
-      .then(data => {
-        let html = "";
-        data.signals.forEach(s => {
-          html += `<p>⏰ ${s.time} — 🎯 ${s.odd}</p>`;
+    if (isActivationValid()) {
+      fetch("twox-signals.json")
+        .then(r => r.json())
+        .then(data => {
+          let html = `<div class="highlight-box">⚠️ Notice: Always bet 3 rounds using Martingale. Auto cash out 2x.</div>`;
+          data.signals.forEach(s => {
+            html += `<p>⏰ ${s.time} — 🎯 ${s.odd}</p>`;
+          });
+          document.getElementById("twoxArea").innerHTML = html;
+          document.getElementById("twoxArea").style.display = "block";
         });
-        document.getElementById("twoxArea").innerHTML = html;
-        document.getElementById("twoxArea").style.display = "block";
-      });
+    } else {
+      document.getElementById("activationModal").style.display = "flex";
+    }
   };
 }
