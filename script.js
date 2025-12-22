@@ -30,8 +30,8 @@ updateDateTime();
 /* =========================
    ACTIVATION SETTINGS
 ========================= */
-const ACTIVATION_CODE = "SASIYA2025"; // 🔑 CHANGE THIS
-const VALID_HOURS = 2;               // ⏱ VALID TIME
+const ACTIVATION_CODE = "SASIYA"; // 🔑 CHANGE THIS
+const VALID_HOURS = 168 ;               // ⏱ VALID TIME
 
 /* =========================
    MAIN GENERATE BUTTON
